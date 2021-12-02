@@ -1,40 +1,33 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 
 // Dizendo para o Express usar o EJS como View engine
 app.set('view engine', 'ejs')
 
+// Informando nossa pasta de arquivo estaticos
 app.use(express.static('public'))
 
+// Configurando o body parser
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+
+// ROTAS
 app.get('/', (req, res) => {
-    res.send('Olá você está na página principal do projeto')
+    res.render('index.ejs')
 })
 
-app.get('/:nome/:lang', (req, res) => {
-    let nome = req.params.nome
-    let lang = req.params.lang
-    let exibirMsg = false
-
-
-    let produtos = [
-        {nome: 'Doritos', preco: 3.14},
-        {nome: 'Coca-Cola', preco: 5},
-        {nome: 'Leite', preco: 1.45},
-        {nome: 'Carne', preco: 15},
-        {nome: 'Red-Bull', preco: 6}
-    ]
-
-
-    res.render('index', {
-        nome: nome,
-        lang: lang,
-        empresa: 'Guia do programador',
-        inscrito: 8000,
-        msg: exibirMsg,
-        produtos: produtos
-    })
+app.get('/perguntar', (req, res) => {
+    res.render('perguntar')
 })
 
+app.post('/salvarpergunta', (req, res) => {
+    let titulo = req.body.titulo
+    let descricao = req.body.descricao
+    res.send('Formulario Recebido: Título: '+titulo +' Descrição: '+descricao )
+})
+
+// PORTA DO PROJETO
 app.listen(8080, () => {
     console.log('App rodando na porta http://localhost:8080/');
 })

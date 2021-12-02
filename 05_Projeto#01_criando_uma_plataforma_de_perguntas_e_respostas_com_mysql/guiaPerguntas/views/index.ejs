@@ -1,38 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Principal</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
+<%- include ('partials/header') %> 
 <body>
-    <h1>Aula Node</h1>
-    <p>Nome: <%= nome %> </p>
-    <p>Linguagem favorita: <%= lang %> </p>
-    <p>Empresa: <%= empresa %> </p>
-    <p>Incritos: <%= inscrito %> </p>  
-
-    <% if(msg == true){ %>
-        <h3>Isso é uma msg de ERRO!</h3>
-    <% }else { %>
-        <h3>Nenhum erro!</h3>
-    <% } %>  
-    
-    <table border="1" style="text-align: center;">
-        <th>Produtos</th>
-        <th>Preços</th>
-        
-        <% produtos.forEach(produto => { %>
-            <tr>
-                <td><%= produto.nome %> </td>
-                <td><%= produto.preco %> </td>
-            </tr>
-        <% }) %>  
-    </table>
-
-    <img src="/img/camisa_node.jpg" alt="">
-
+    <%- include ('partials/navbar') %> 
+    <button class="btn btn-success">Estilo do Bootstrap</button>
+    <a href="/perguntar">Perguntas</a>
 </body>
+<%- include ('partials/footer') %> 
 </html>
