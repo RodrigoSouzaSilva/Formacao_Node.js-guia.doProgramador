@@ -1,6 +1,13 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const connection = require('./database/database')
+const Pergunta = require('./database/Pergunta')
+
+// Database
+connection.authenticate()
+.then(() => {console.log('Conexão feita com o banco de dados!');})
+.catch((msgErro) => {console.log('Erro '+msgErro);})
 
 // Dizendo para o Express usar o EJS como View engine
 app.set('view engine', 'ejs')
@@ -14,7 +21,11 @@ app.use(bodyParser.json())
 
 // ROTAS
 app.get('/', (req, res) => {
-    res.render('index.ejs')
+    Pergunta.findAll({raw: true}).then(perguntas => {
+        res.render('index.ejs', {
+            perguntas: perguntas
+        })
+    })
 })
 
 app.get('/perguntar', (req, res) => {
@@ -22,9 +33,16 @@ app.get('/perguntar', (req, res) => {
 })
 
 app.post('/salvarpergunta', (req, res) => {
+
     let titulo = req.body.titulo
     let descricao = req.body.descricao
-    res.send('Formulario Recebido: Título: '+titulo +' Descrição: '+descricao )
+    
+    Pergunta.create({
+        titulo: titulo,
+        descricao: descricao
+    }).then(() => {
+        res.redirect('/')
+    })
 })
 
 // PORTA DO PROJETO
