@@ -6,6 +6,13 @@
         <h1><%- pergunta.titulo %> </h1>
         <p><%- pergunta.descricao %> </p>
         <hr>
+        <form action="/responder" method="POST">
+            <h3>Responda</h3>
+            <label for="">Resposta:</label>
+            <textarea class="form-control" name="corpo" placeholder="Digite sua resposta"></textarea>
+            <button class="btn btn-primary mt-3" type="submit">Responder</button>
+            <input type="hidden" name="pergunta" value="<%= pergunta.id %> ">
+        </form>
     </div>
 </body>
 <%- include ('partials/footer') %> 
