@@ -13,6 +13,16 @@
             <button class="btn btn-primary mt-3" type="submit">Responder</button>
             <input type="hidden" name="pergunta" value="<%= pergunta.id %> ">
         </form>
+        <hr>
+        <h3>Respostas</h3>
+        <hr>
+        <% respostas.forEach(resposta => { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p><%= resposta.corpo %> </p>
+                </div>
+            </div>
+        <% }) %> 
     </div>
 </body>
 <%- include ('partials/footer') %> 
