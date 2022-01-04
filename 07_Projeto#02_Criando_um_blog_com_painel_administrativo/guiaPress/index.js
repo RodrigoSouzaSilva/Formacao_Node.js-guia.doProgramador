@@ -37,7 +37,31 @@ app.use('/', articlesController)
 
 // Rotas SIMPLES
 app.get('/', (req, res) => {
-    res.render('index')
+    Article.findAll( {
+        order: [
+            ['id','DESC']
+        ]
+    }).then(articles => {
+        res.render('index', {articles: articles})
+    })
+})
+
+app.get('/:slug', (req, res) => {
+    let slug = req.params.slug
+
+    Article.findOne({
+        where: {
+            slug: slug
+        }
+    }).then( article => {
+        if (article != undefined) {
+            res.render('article', {article: article})
+        } else {
+            res.redirect('/')
+        }
+    }).catch(err => {
+        res.redirect('/')
+    })
 })
 
 // Porta que está rodando nossa aplicação
