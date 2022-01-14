@@ -10,10 +10,12 @@ app.use(bodyParser.json())
 // Dominios relacionados
 const categoriesController = require('./categories/CategoriesController')
 const articlesController = require('./articles/ArticlesController')
+const userController = require('./user/Usercontroller')
 
 // Importando os Models
 const Article = require('./articles/Article')
 const Category = require('./categories/Category')
+const User = require('./user/User')
 
 // Viem Engine
 app.set('view engine', 'ejs')
@@ -34,6 +36,7 @@ connection.authenticate()
 // Rotas que INCLUEM os Dominios Relacionados
 app.use('/', categoriesController)
 app.use('/', articlesController)
+app.use('/', userController)
 
 // Rotas SIMPLES
 app.get('/', (req, res) => {
