@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const connection = require('./database/database')
+const session = require('express-session')
 
 // Body-parser
 app.use(bodyParser.urlencoded({extended: false}))
@@ -20,9 +21,16 @@ const User = require('./user/User')
 // Viem Engine
 app.set('view engine', 'ejs')
 
+// Ativar gerenciamento de sessão
+app.use(session({
+    secret: 'qualquercoisa',
+    cookie: {
+        maxAge: 30000
+    }
+}))
+
 // Static
 app.use(express.static('public'))
-
 
 // Database
 connection.authenticate()
