@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Category = require('./Category')
 const slugify = require('slugify')
+const Article = require('../articles/Article')
 
 router.get('/admin/categories', (req, res) => {
     Category.findAll().then(categories => {
@@ -29,17 +30,19 @@ router.post('/categories/save', (req, res) => {
 })
 
 router.post('/categories/delete', (req, res) => {
-    let id = req.body.id
+    let id = req.body.id //69
 
     if(id != undefined){
         if(!isNaN(id)){  // FOR um número
-            Category.destroy({
-                where: {
-                    id: id
-                }
-            }).then( () => {
+            // Category.destroy({where: {id: id}})
+            Article.destroy({where: {categoryId: id}}).then(
+                Category.destroy({where: {id: id}})
+            )
+            .then( () => {
                 res.redirect('/admin/categories')
             })
+            
+            
         } else { // Não for um número
             res.redirect('/admin/categories')
         }

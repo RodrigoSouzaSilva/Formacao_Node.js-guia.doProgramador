@@ -22,10 +22,10 @@
                     <td><%= article.id %> </td>
                     <td><%= article.title %></td>
                     <td><%= article.slug %></td>
-                    <td><%= article.category.title %></td>
+                    <td><%= article.category.title %></td> 
                     <td>
                         <form method="POST" action="/articles/delete" style="display: inline;" onsubmit="confirmarDelecao(event, this)">
-                            <input type="hidden" name="id" value="<%= article.id %>">
+                            <input type="hidden" name="id" value="<%= article.categoryId %>">
                             <button class="btn btn-danger">Excluir</button>
                         </form>
                     </td>
@@ -40,7 +40,6 @@
 <script>
     function confirmarDelecao(event,form){
         event.preventDefault()
-        console.log('o formulario nao foi enviado');
         let decision = confirm('Você quer deletar este artigo?')
         if(decision){
             form.submit() // Caso verdadeiro

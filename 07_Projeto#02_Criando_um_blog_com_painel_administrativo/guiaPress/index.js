@@ -25,7 +25,7 @@ app.set('view engine', 'ejs')
 app.use(session({
     secret: 'qualquercoisa',
     cookie: {
-        maxAge: 30000
+        maxAge: 30000000
     }
 }))
 
@@ -45,6 +45,30 @@ connection.authenticate()
 app.use('/', categoriesController)
 app.use('/', articlesController)
 app.use('/', userController)
+
+// Rotas de sessoes
+app.get('/session', (req, res) => {
+    //req.session.cookie.expires = false Cancela o sumiço da session
+    req.session.treinamento = 'Formação Node.js'
+    req.session.ano = 2019
+    req.session.email = 'victor@udemy.com'
+    req.session.user = {
+        username: 'Rodrigo',
+        email: 'rodrigo_souza.91@hotmail.com',
+        id: 10
+    }
+
+    res.send('Sessão gerada!!!')
+})
+
+app.get('/leitura', (req, res) => {
+    res.json({
+        treinamento: req.session.treinamento,
+        ano: req.session.ano,
+        email: req.session.email,
+        user: req.session.user
+    })
+})
 
 // Rotas SIMPLES
 app.get('/', (req, res) => {
