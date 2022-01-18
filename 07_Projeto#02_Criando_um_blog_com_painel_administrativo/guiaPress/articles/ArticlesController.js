@@ -8,6 +8,7 @@ const slugify = require('slugify')
 const  adminAuth = require('../middlewares/adminAuth')
 
 router.get('/admin/articles', adminAuth, (req, res) => {
+    
     Article.findAll({
         include:[{model:Category}]
     }).then(articles => {
@@ -39,7 +40,7 @@ router.post('/articles/save', adminAuth, (req, res) => {
 
 router.post('/articles/delete', (req, res) => {
     let id = req.body.id
-
+    
     if(id != undefined){
         if(!isNaN(id)){  // Se for um número
             Article.destroy({
@@ -93,6 +94,7 @@ router.post('/articles/update', adminAuth, (req, res) => {
 
 router.get('/articles/page/:num', (req, res) => {
     let page = req.params.num
+    let user = req.session.user
 
     if(isNaN(page) || page == 0) {
         offset = 0
@@ -128,7 +130,7 @@ router.get('/articles/page/:num', (req, res) => {
         }
 
         Category.findAll().then(categories => {
-            res.render('admin/articles/page', {result: result, categories: categories})
+            res.render('admin/articles/page', {result: result, categories: categories, user: user})
         })
     })
 })

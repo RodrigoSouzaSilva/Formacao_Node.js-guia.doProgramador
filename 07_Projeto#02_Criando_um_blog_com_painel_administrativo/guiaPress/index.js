@@ -72,6 +72,7 @@ app.get('/leitura', (req, res) => {
 
 // Rotas SIMPLES
 app.get('/', (req, res) => {
+    let user = req.session.user
     Article.findAll( {
         order: [
             ['id','DESC']
@@ -79,7 +80,7 @@ app.get('/', (req, res) => {
         limit: 4
     }).then(articles => {
         Category.findAll().then( categories => {
-            res.render('index', {articles: articles, categories: categories})
+            res.render('index', {articles: articles, categories: categories, user: user})
         })
     })
 })
