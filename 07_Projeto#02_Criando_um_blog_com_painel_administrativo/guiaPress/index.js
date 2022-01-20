@@ -127,6 +127,9 @@ app.get('/category/:slug', (req, res) => {
 })
 
 // Porta que está rodando nossa aplicação
-app.listen(8080, () => {
-    console.log('O Servidor está rodando na porta 8080');
+
+const PORT = process.env.PORT || 8080
+
+app.listen(PORT, () => {
+    console.log('O Servidor está rodando na porta '+PORT);
 })

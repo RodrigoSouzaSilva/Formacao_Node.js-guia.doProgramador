@@ -1,7 +1,6 @@
 {
   "name": "guiapress",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +17,7 @@
     "mysql2": "^2.3.3",
     "sequelize": "^7.0.0-alpha.2",
     "slugify": "^1.6.4"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
